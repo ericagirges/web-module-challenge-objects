@@ -1,20 +1,20 @@
 ///////////////Menu Items (MVP)///////////////////
 
-// const latte = {name: "Cafe Latte", price: 4, category: "Drinks"};
-// const burger = {name: "Burger", price: 18, category: "Lunch"};
-// const breakfastBurrito = {name: "Breakfast Burrito", price: 16, category:"Breakfast"};
+const latte = {name: "Cafe Latte", price: 4, category: "Drinks"};
+const burger = {name: "Burger", price: 18, category: "Lunch"};
+const breakfastBurrito = {name: "Breakfast Burrito", price: 16, category:"Breakfast"};
 
 // /* Task 1a: write a function to return more menu items with the same format as the items above. */
 
-// function createMenuItem(name, cost, category){
-//     return {name, cost, category};
-// }
+function createMenuItem(name, price, category){
+    return {name, price, category};
+}
 
 // /* Task 1b: use your function to create 3 more menu items. You may add any items to the menu that you'd like */
 
-// console.log(createMenuItem("Tacos", 8, "Lunch"));
-// console.log(createMenuItem("Pumpkin Pie", 4, "Dessert"));
-// console.log(createMenuItem("French Toast", 9, "Breakfast"));
+console.log(createMenuItem("Tacos", 8, "Lunch"));
+console.log(createMenuItem("Pumpkin Pie", 4, "Dessert"));
+console.log(createMenuItem("French Toast", 9, "Breakfast"));
 
 /* Task 2: You're having a lunch special! 25% off for teachers and students, 10% off for everyone else. Add a method to your burger object that automatically calculates price given a string as a parameter. 
 
@@ -27,22 +27,19 @@ and should return a number.
 
 For example, burger.discount("teacher") would return 13.5 and burger.discount("public") would return 16.2*/
 
-const burger = {
-  name: "Burger",
-  price: function (str) {
-    let discount = 0;
-    if (str === "teacher" || str === "student") {
-      discount = 18 * 0.25;
-      return 18 - discount;
-    } else if (str === "public") {
-      discount = 18 * 0.1;
-      return 18 - discount;
-    }
-  },
-  category: "Lunch",
+burger.discount = function (str) {
+  let discount = 0;
+  if (str === "teacher" || str === "student") {
+    discount = this.price * 0.25;
+  } else if (str === "public") {
+    discount = this.price * 0.1;
+  }
+  return this.price - discount;
 };
 
-console.log(burger.price("student"));
+console.log(burger.discount("student"));
+console.log(burger.discount("public"));
+console.log(burger.discount("teacher"));
 
 ///////////////Reviews (MVP)///////////////////
 
@@ -95,7 +92,6 @@ console.log(reviews[5].feedback);
 function addReview(arr, name, rating, feedback){
   arr.push({name, rating, feedback})
   return arr;
-
 }
 
 console.log(addReview(reviews, "Ariel", 3, "Great spot for ambiance so long as you don't mind the slow service."))
@@ -108,7 +104,6 @@ console.log(addReview(reviews, "Ariel", 3, "Great spot for ambiance so long as y
 function editReviews(arr, index, key, feedback){
   arr[index][key] = feedback;
   return arr;
-
 }
 
 console.log(editReviews(reviews, 7, "feedback", "this place is chill with really cool people, great for getting work done on weekdays"))
@@ -130,7 +125,7 @@ function getReviewByIndex(arr, index) {
   const reviewerName = arr[index].name;
   const reviewerRating = arr[index].rating;
   const reviewerFeedback = arr[index].feedback;
-  return reviewerName + " gave the restaurant a " + reviewerRating + " and their feedback was : " + reviewerFeedback
+  return `${reviewerName} gave the restaurant a ${reviewerRating} and their feedback was : ${reviewerFeedback}`
  
 }
 
@@ -146,11 +141,11 @@ and should return a string in the format `name} gave the restaurant a {rating}, 
 For example, if getLastReview is invoked passing the reviews array it will return `Reyna gave the restaurant a 3.5 star review and their feedback was: "this place is chill with really cool people, great for getting work done on weekdays"`.
 */
 function getLastReview(arr) {
-const lastReview = [{}];
-lastReview = arr.pop();
+  const lastIndex = arr.length - 1;
+  return arr[lastIndex];
 }
 
-console.log(reviews)
+console.log(getLastReview(reviews))
 
 ///////////////🍔☕️🍽 STRETCH🍔☕️🍽////////////////////
 
